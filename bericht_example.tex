@@ -1,0 +1,228 @@
+%%% File-Information {{{
+%%% Filename: template.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2023-10-16 11:16 xx>
+%%% Authors: Maximilian Gerner
+%%%          
+%%% History:
+%%%   20231016 (mg) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+% twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+ headsepline, %% add a horizontal line below the column title
+% footsepline, %% add a horizontal line above the page footer
+% titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+ halfparskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+ fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+% draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+% 11pt         %% set default font size to 11 point
+12pt         %% set default font size to 12 point
+]{scrartcl}  %% article, see KOMA documentation (scrguide.dvi)
+
+
+\include{settings}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+
+\begin{document}
+
+
+
+
+ \pagenumbering{roman} %% small roman page numbers
+
+%%% include the title
+% \thispagestyle{empty}  %% no header/footer (only) on this page
+ \maketitle
+
+
+
+%%% start a new page and display the table of contents
+% \newpage
+ \tableofcontents
+
+%%% start a new page and display the list of figures
+% \newpage
+ \listoffigures
+
+%%% start a new page and display the list of tables
+% \newpage
+ \listoftables
+
+%%% display the main document on a new page 
+% \newpage
+
+ \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+
+\section{Einleitung}
+\label{sec:einleitung}
+
+Ziel dieser Arbeit ist es weniger, eine Antriebswelle auf ihre Belastung durchzurechnen, als vielmehr ein Beispiel zu bringen, wie ein (technischer) Projektbericht mit der Vorlage \textsf{template\_bericht.tex} verfasst werden kann. Es wird darauf Wert gelegt, dass die häufigsten Elemente wie Tabellen, Abbildungen und mathematische Umgebungen nicht fehlen.
+
+
+\section{Berechnung}
+\label{sec:berechnung}
+
+Unsere Aufgabe ist es, eine statisch bestimmt gelagerte Welle zu untersuchen.
+
+\subsection{Wellenlagerung}
+\label{sec:wellenlagerung}
+
+Der schematische Aufbau ist in Abb.~\ref{fig:schema} ersichtlich. Der Motor (links) treibt die Welle mit vorgegebenem Drehmoment an; hier sei vorausgesetzt, dass der Durchmesser des Bauteils ausreicht, um das Torsionsmoment aufnehmen zu können. Weiters soll durch eine spezielle Lagerung der Motor keine vertikalen Kräfte auf die Welle übertragen können. An der Schleifscheibe (rechts) können jedoch Querkräfte auftreten, die zu einer zusätzlichen Belastung der Welle führen. Untersucht werden sollen die Kräfte in den Lagern. 
+
+\begin{figure}[bt]
+  \centering
+  \includegraphics{./images/schema}
+  \caption[Welle: schematischer Aufbau]{Schematischer Aufbau}
+  \label{fig:schema}
+\end{figure}
+
+
+\subsection{Ermitteln der statischen Größen}
+\label{sec:ermitt-der-stat}
+
+Der statische Freischnitt ist in Abb.~\ref{fig:freischnitt} dargestellt. Für die Kräfteberechnung reicht es, das Gleichgewicht in vertikaler Richtung sowie das Momentengleichgewicht zu betrachten. Dies wird in Gl.~\eqref{eq:1} bis Gl.~\eqref{eq:6} durchgeführt. Der Berechnung liegen die Axiome von \cite{newton} zugrunde.
+
+\begin{figure}[bt]
+  \centering
+  \includegraphics{./images/statik}
+  \caption[Welle: statischer Freischnitt]{Freischnitt}
+  \label{fig:freischnitt}
+\end{figure}
+
+Summe aller vertikalen Kräfte:
+\begin{equation}
+  \label{eq:1}
+  \sum\limits_{i} F_{i}^{vert} = 0
+\end{equation}
+\begin{equation}
+  \label{eq:2}
+  -F_{li} - F_{re} + F_{ext} = 0
+\end{equation}
+
+Summe aller Momente:
+\begin{equation}
+  \label{eq:3}
+  \sum\limits_{i} M_{i} = 0
+\end{equation}
+\begin{equation}
+  \label{eq:4}
+  -F_{re}b + F_{ext}(b+c) = 0
+\end{equation}
+
+Aus Gl.~\eqref{eq:4} folgt
+\begin{equation}
+  \label{eq:5}
+  F_{re} = \frac{b+c}{b} F_{ext} 
+\end{equation}
+
+Diesen Ausdruck für $F_{re}$ in Gl.~\eqref{eq:2} eingesetzt liefert
+\begin{equation}
+  \label{eq:6}
+  F_{li} = -\frac{c}{b} F_{ext} 
+\end{equation}
+
+Die gemessenen Werte an der Welle werden in Tabelle \ref{tab:wertewelle} (Seite~\pageref{tab:wertewelle}) verdeutlicht. Diese in die Gleichungen für $F_{li}$ und $F_{re}$ eingesetzt liefern die Zahlenwerte der gesuchten Größen.
+
+\begin{table}[bt]
+  \centering
+  \begin{tabular}{|l|c|r|l|}
+\hline
+externe Kraft & $F_{ext}$ & 5.00 & $\unit{kN}$ \\
+\hline
+Abstand       & $a$       & 40    & \unit{mm}   \\
+\hline
+Abstand       & $b$       & 80    & \unit{mm}   \\
+\hline
+Abstand       & $c$       & 50    & \unit{mm}   \\
+\hline
+  \end{tabular}
+  \caption{Gemessen Werte an der Welle}
+  \label{tab:wertewelle}
+\end{table}
+
+\begin{equation}
+  \label{eq:9}
+  \begin{aligned}
+    F_{li} & = -\frac{50}{80}\cdot 5.00 \\
+           & = \unit[3.125]{kN}    
+  \end{aligned}
+\end{equation}
+
+\begin{equation}
+  \label{eq:10}
+  \begin{aligned}
+    F_{re} & = \frac{80 + 50}{50} \cdot 5.00 \\
+           & = \unit[13.00]{kN}    
+  \end{aligned}
+\end{equation}
+
+\section{Weitere Vorgangsweise}
+\label{sec:weit-vorg}
+
+In weiterer Folge wird das dynamische Verhalten der Welle mithilfe einer Computersimulation untersucht. Der nächste Projektbericht soll darüber Aufschluss geben.
+
+
+%%%
+%%% end main document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \appendix  %% include it, if something (bibliography, index, ...) follows below
+
+
+% \lstlistoflistings
+% \addcontentsline{toc}{section}{Code-Ausschnitte}
+
+% \listoffigures
+% \addcontentsline{toc}{section}{Abbildungsverzeichnis}
+
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% bibliography
+%%%
+%%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+%%%
+ \bibliographystyle{plain}
+
+%%% name of the bibliography file
+ \bibliography{projekt.bib}
+
+
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker
