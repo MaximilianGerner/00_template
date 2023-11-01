@@ -7,15 +7,18 @@
 %%% \title, \author etc.
 %%%
 
-\def\getsubject{Bericht}   
+%%% subject
+\def\getsubject{Bericht 404}   
 \subject{\getsubject}   %% subject which appears above titlehead
 % \titlehead{} %% special heading for the titlepage
 
-
 %%% title
-\def\gettitle{Untersuchung einer Antriebswelle}
+\def\gettitle{Untersuchung einer Antriebswelle 404}
 \title{\gettitle}
 
+%%% subtitle
+\def\getsubtitle{Das ist ein Subtitle 404}
+\subtitle{\getsubtitle\\[60pt]}
 
 %%% author(s) use \and for more than one author (search for workaround with the warnings thrown by hyperrefsetup
 \def\getauthor{Maximilian Gerner}
@@ -56,14 +59,17 @@
 
 %%% fontenc, ae, aecompl: coding of characters in PDF documents
 \usepackage[T1]{fontenc}
-\usepackage{ae,aecompl}
+\usepackage{ae, aecompl}
 
 %%%
 %%% technical packages
 %%%
 
 %%% amsmath, amssymb, amstext: support for mathematics
-\usepackage{amsmath,amssymb,amstext}
+\usepackage{amsmath, amssymb, amstext}
+
+%%% mathtools: supports more mathmatical symbols
+\usepackage{mathtools}
 
 %%% psfrag: replace PostScript fonts
 %\usepackage{psfrag}
@@ -73,6 +79,14 @@
 
 %%% units: technical units
 \usepackage{units}
+
+%%% enumitem and pifont: add more symbols to use in bullet lists
+\usepackage{enumitem}
+\usepackage{pifont}
+
+%%% float: manage where to put included images and add priorities
+\usepackage{float}
+
 
 %%%
 %%% layout
@@ -181,6 +195,19 @@
     \textbf{#3}
   \end{center}
 }
+
+
+%% \vecttwo{}
+%% 
+%% usage:       \vecttwo{a, b}
+%% requires:    amsmath, accents
+\newcommand{\vecttwo}[2]{\begin{pmatrix} #1 \\ #2  \end{pmatrix}}
+
+
+%% \*
+%% shortcut for \cdot
+%% usage \*
+\renewcommand{\*}{\cdot}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
